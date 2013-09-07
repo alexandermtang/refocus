@@ -24,9 +24,10 @@ function toJSON(linkArr) {
 }
 
 function linkExists(linkArr, link){
-  linkArr.forEach(function(o) {
-    if (o.url == link.url)  return true;
-  });
+  for(var i = 0; i < linkArr.length; i++){
+  		var o = linkArr[i];
+    	if (o.url == link.url)  return true;
+  }
   return false;
 }
 
