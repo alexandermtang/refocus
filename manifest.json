@@ -13,12 +13,11 @@
   "background":{
     "scripts": ["bookmark_test.js"]
   },
-  
+
   "permissions": [
     "bookmarks",
-    "history"
+    "history",
+    "tabs"
   ]
 
-  
-  
 }
