@@ -1,7 +1,8 @@
 $(function(){
 	var site_key = "refocus_websites";
 	var ta = $("textarea");
-	var fb = $("#feedback");
+	var fb = $("#feedback").hide();
+	var fbTimer = null;
 	chrome.storage.sync.get(site_key, function(data){
 		var websites = [];
 		if(data[site_key]){
@@ -23,6 +24,10 @@ $(function(){
 		var newObj = {};
 		newObj[site_key] = JSON.stringify(obj);
 		chrome.storage.sync.set(newObj);
-		fb.html("Options updated!");
+
+		fbTimer = window.clearTimeout(fbTimer);
+		fb.html("Options updated!").fadeIn();
+		fbTimer = window.setTimeout(function(){fb.fadeOut();}, 5000);
+
 	});
 });

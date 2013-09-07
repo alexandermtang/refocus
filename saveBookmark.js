@@ -46,7 +46,7 @@ function storeLinkStr(linkStr){
 function updateList(linkArr){
 	$("ul").empty();
   linkArr.forEach(function(o) {
-		$("ul").append("<li>" + o.title + "<span>" + o.url +
+		$("ul").append("<li><a href='" + o.url + "' target='_blank'>" + o.title + "</a><span>" + o.url +
         "</span><a href='#' data-url='" + o.url + "' class='remove'>X</a></li>");
   });
 }
@@ -75,8 +75,6 @@ $(document).ready(function(){
 
 		chrome.storage.sync.get(key, function(data) {
 			linkArr = parseJSON(data[key]);
-      // console.log(key, data);
-      // console.log(linkArr);
 			toggleButtons();
 			updateList(linkArr);
 		});
@@ -88,12 +86,11 @@ $(document).ready(function(){
 		//check if bookmark exists
 		//add link
 		if (!linkExists(linkArr, curTab)) {
-      // console.log(linkArr, curTab);
 			linkArr.push(curTab);
-			stat.html("Page bookmarked");
+			stat.html("Page bookmarked").show();
 		} else {
 			//already there
-			stat.html("Bookmark already exists");
+			stat.html("Bookmark already exists").show();
 		}
 		storeLinkStr(toJSON(linkArr));
 		$("#remove").show();
@@ -105,20 +102,17 @@ $(document).ready(function(){
 		$("#add").show();
 		e.preventDefault();
 		removeLink(linkArr, curTab);
-		stat.html("Bookmark removed");
+		stat.html("Bookmark removed").show();
 		storeLinkStr(toJSON(linkArr));
 		updateList(linkArr);
 	}).show();
 
 	$("body").delegate(".remove", "click", function(e){
-		console.log("DELETED");
 		removeLink(linkArr, {url: $(this).attr("data-url")});
 		updateList(linkArr);
 		storeLinkStr(toJSON(linkArr));
 		toggleButtons();
 	});
-
-
 
 });
 

@@ -1,10 +1,12 @@
 <!doctype html>
 <html lang="en">
 <head>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<style>
 	*{
 		margin: 0;
 		padding: 0;
+		font-family : 'Open Sans';
 	}
 	#remove{
 		display: none;
@@ -25,6 +27,7 @@
 		position: relative;
 		padding-bottom: 15px;
 		padding-left: 5px;
+		font-size: 12px;
 	}
 	ul li:nth-child(even){
 		background: #EEE;
@@ -33,12 +36,18 @@
 		font-size: 10px;
 		position: absolute;
 		left: 5px;
-		bottom: 4px;
+		bottom: 2px;
 	}
-	ul li a{
+	a{
+		text-decoration: none;
+	}
+	ul li .remove{
 		position: absolute;
 		right: 5px;
-		text-decoration: none;
+	}
+	#status{
+		padding: 5px;
+		display: none;
 	}
 	</style>
 </head>
