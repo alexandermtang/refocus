@@ -117,8 +117,5 @@ $(document).ready(function(){
 		storeLinkStr(toJSON(linkArr));
 		toggleButtons();
 	});
-
-
-
 });
 
