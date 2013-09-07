@@ -9,6 +9,7 @@ function linkExists(linkStr, link){
 	}
 	return false;
 }
+
 function removeLink(linkStr, link){
 	var newStr = "";
 	var allBookmarks = linkStr.split(" ");
@@ -61,7 +62,6 @@ $(document).ready(function(){
 		e.preventDefault();
 		//check if bookmark exists
 		console = chrome.extension.getBackgroundPage().console;
-			
 		var empty = false;
 		var newValue = "";
 
@@ -83,9 +83,7 @@ $(document).ready(function(){
 			//already there
 			stat.html("Bookmark already exists");
 		}
-
 		storeLinkStr(linkStr);
-		console.log(linkStr);
 		$("#remove").show();
 	});		
 	$("#remove").click(function(e){
@@ -95,7 +93,6 @@ $(document).ready(function(){
 		linkStr = removeLink(linkStr, tabUrl);
 		stat.html("Bookmark removed");
 		storeLinkStr(linkStr);
-		console.log(linkStr);
 	}).show();
 });
 

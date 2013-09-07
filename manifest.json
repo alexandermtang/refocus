@@ -11,8 +11,7 @@
 
 
   "background":{
-    //"page": "bg.html"
-    "scripts" : ["redirectTab.js"]
+    "scripts" : ["redirectTab.js", "newtab.js"]
   },
 
   "browser_action": {
@@ -22,7 +21,7 @@
     "default_title": "Bookmark",
     "default_popup": "popup.html"
   },
-  
+
   "permissions": [
     "bookmarks",
     "history",

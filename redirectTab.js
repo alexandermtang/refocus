@@ -14,7 +14,6 @@ chrome.tabs.onCreated.addListener(function(tab) {
 		var rand = Math.floor(Math.random() * allBookmarks.length);
 		if(Math.floor(Math.random() * 2) == 0){//just for testing, 1/2 chance of showing
 			chrome.tabs.update(tab.id, {url: allBookmarks[rand]});
-			console.log("HERE");
 		}
 	});
 
