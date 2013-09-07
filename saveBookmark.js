@@ -53,7 +53,6 @@ function removeLink(linkArr, link){
 }
 
 function storeLinkStr(linkStr){
-	console.log("STORING: " + linkStr);
 	var newObj = {};
 	newObj[key] = linkStr;
 	chrome.storage.sync.set(newObj, function(){});
@@ -63,7 +62,7 @@ function updateList(linkArr){
 	$("ul").empty();
 	//console.log(linkStr + " : " );
 	for(var i = 0; i < linkArr.length; i++){
-		$("ul").append("<li>" + linkArr[i].title + "<a href='#' class='remove'>X</a></li>");
+		$("ul").append("<li>" + linkArr[i].title + "<span>" + linkArr[i].url + "</span><a href='#' data-url='" + linkArr[i].url + "' class='remove'>X</a></li>");
 	}
 }
 
@@ -71,6 +70,17 @@ $(document).ready(function(){
 	var curTab = {};
 	var linkArr = [];
 	var stat = $("#status");
+
+	function toggleButtons(){
+		if(linkExists(linkArr, curTab)){
+			$("#add").hide();
+			$("#remove").show();
+		}
+		else{
+			$("#add").show();
+			$("#remove").hide();
+		}
+	}
 	chrome.tabs.getSelected(function(tab){
 		//check if already in storage
 		curTab = {
@@ -79,18 +89,8 @@ $(document).ready(function(){
 		};
 
 		chrome.storage.sync.get(key, function(data){
-			console.log("1");
-			console.log(data[key]);
 			linkArr = parseStr(data[key]);
-			console.log("2");
-			if(linkExists(linkArr, curTab)){
-				$("#add").hide();
-				$("#remove").show();
-			}
-			else{
-				$("#add").show();
-				$("#remove").hide();
-			}
+			toggleButtons();
 			updateList(linkArr);
 		});
 	});
@@ -122,9 +122,15 @@ $(document).ready(function(){
 		updateList(linkArr);
 	}).show();
 
-	$(".remove").on(function(e){
-		console.log("Removing...");
-	})
+	$("body").delegate(".remove", "click", function(e){
+		console.log("HERE");
+		removeLink(linkArr, {url: $(this).attr("data-url")});
+		updateList(linkArr);
+		storeLinkStr(toStr(linkArr));
+		toggleButtons();
+	});
+
+
 	
 });
 
