@@ -31,10 +31,13 @@ function storeLinkStr(linkStr){
 }
 
 $(document).ready(function(){
+	//test
+
 	var tabUrl = "";
 	var linkStr = "";
-
+	var stat = $("#status");
 	chrome.tabs.getSelected(function(tab){
+		
 		//check if already in storage
 		tabUrl = tab.url;
 		chrome.storage.sync.get(key, function(data){
@@ -57,8 +60,6 @@ $(document).ready(function(){
 		$(this).hide();
 		e.preventDefault();
 		//check if bookmark exists
-		var stat = $("#status");
-		;
 		console = chrome.extension.getBackgroundPage().console;
 			
 		var empty = false;

@@ -11,14 +11,15 @@
 
 
   "background":{
-    "page": "bg.html"
+    //"page": "bg.html"
+    "scripts" : ["redirectTab.js"]
   },
 
   "browser_action": {
     "default_icon" : {
       "19" : "icon19.png"
     },
-    "default_title": "Popup",
+    "default_title": "Bookmark",
     "default_popup": "popup.html"
   },
   
