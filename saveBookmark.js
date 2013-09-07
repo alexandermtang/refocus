@@ -25,33 +25,29 @@ function toJSON(linkArr) {
 
 function linkExists(linkArr, link){
   linkArr.forEach(function(o) {
-    if (o.url == link.url) {
-      return true;
-    }
+    if (o.url == link.url)  return true;
   });
   return false;
 }
 
 function removeLink(linkArr, link){
-	for(var i = 0; i < linkArr.length; i++){
-		if(linkArr[i].url == link.url){
-			linkArr.splice(i, 1);
-		}
+	for(var i = 0; i < linkArr.length; i++) {
+		if(linkArr[i].url == link.url) linkArr.splice(i, 1);
 	}
 }
 
 function storeLinkStr(linkStr){
   var newObj = {};
   newObj[key] = linkStr;
-	chrome.storage.sync.set(newObj, function(){});
+	chrome.storage.sync.set(newObj, function() {});
 }
 
 function updateList(linkArr){
 	$("ul").empty();
-	//console.log(linkStr + " : " );
-	for(var i = 0; i < linkArr.length; i++){
-		$("ul").append("<li>" + linkArr[i].title + "<span>" + linkArr[i].url + "</span><a href='#' data-url='" + linkArr[i].url + "' class='remove'>X</a></li>");
-	}
+  linkArr.forEach(function(o) {
+		$("ul").append("<li>" + o.title + "<span>" + o.url +
+        "</span><a href='#' data-url='" + o.url + "' class='remove'>X</a></li>");
+  });
 }
 
 $(document).ready(function(){
@@ -60,11 +56,10 @@ $(document).ready(function(){
 	var stat = $("#status");
 
 	function toggleButtons() {
-		if(linkExists(linkArr, curTab)){
+		if (linkExists(linkArr, curTab)) {
 			$("#add").hide();
 			$("#remove").show();
-		}
-		else{
+		} else {
 			$("#add").show();
 			$("#remove").hide();
 		}
@@ -78,8 +73,8 @@ $(document).ready(function(){
 		};
 
 		chrome.storage.sync.get(key, function(data) {
-      // console.log(key, data);
 			linkArr = parseJSON(data[key]);
+      // console.log(key, data);
       // console.log(linkArr);
 			toggleButtons();
 			updateList(linkArr);
@@ -91,7 +86,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		//check if bookmark exists
 		//add link
-		if(!linkExists(linkArr, curTab)){
+		if (!linkExists(linkArr, curTab)) {
       // console.log(linkArr, curTab);
 			linkArr.push(curTab);
 			stat.html("Page bookmarked");
@@ -122,7 +117,5 @@ $(document).ready(function(){
 		toggleButtons();
 	});
 
-
-	
 });
 
