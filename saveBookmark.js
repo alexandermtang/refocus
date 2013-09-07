@@ -51,6 +51,7 @@ function updateList(linkArr){
   });
 }
 
+
 $(document).ready(function(){
 	var curTab = {};
 	var linkArr = [];

@@ -5,10 +5,8 @@
   "version": "1.0",
 
   // Recommended
-
   "description": "Focus on important things",
   "icons": {},
-
 
   "background":{
     "scripts" : ["redirectTab.js"]
