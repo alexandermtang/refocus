@@ -13,18 +13,19 @@
   "background":{
     "scripts": ["bookmark_test.js"]
   },
-  
+
   "permissions": [
     "bookmarks",
-    "history"
+    "history",
+    "tabs"
   ],
-  
+
   "content_scripts": [
    {
-    "matches": ["<all_urls>","http://*/*","https://*/*"], 
+    "matches": ["<all_urls>","http://*/*","https://*/*"],
     "js": ["history.js"]
    }
   ]
-  
-  
+
+
 }
