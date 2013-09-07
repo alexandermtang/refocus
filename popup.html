@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	#remove{
+		display: none;
+	}
+	#add, #remove{
+		background: #DDD;
+		padding: 10px;
+		margin: 5px 0px;
+		display: block;
+	}
+	body{
+		width: 300px;
+	}
+	ul{
+		list-style-type: none;
+	}
+	ul li{
+		position: relative;
+		padding-bottom: 15px;
+		padding-left: 5px;
+	}
+	ul li:nth-child(even){
+		background: #EEE;
+	}
+	ul li span{
+		font-size: 10px;
+		position: absolute;
+		left: 5px;
+		bottom: 4px;
+	}
+	ul li a{
+		position: absolute;
+		right: 5px;
+		text-decoration: none;
+	}
+	</style>
+</head>
+<body>
+	<script src="jquery.js"></script>
+  	<script src="saveBookmark.js"></script>
+  	<p id="status"></p>
+  	<a id="add" href="#">Bookmark this Page</a>
+  	<a id="remove" href="#">Remove this Page</a>
+  	<ul><li>1</li></ul>
+</body>
+</html>
