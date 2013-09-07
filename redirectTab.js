@@ -1,4 +1,6 @@
 var key = "refocus_bookmarks";//storage key
+var console = chrome.extension.getBackgroundPage().console;
+
 //just copied and pasted, I'm sure we can split this up
 function parseJSON(data){
   if (!data) return [];
@@ -9,7 +11,7 @@ function parseJSON(data){
 //chance of opening a page on their 'to-read' list
 chrome.tabs.onCreated.addListener(function(tab) {
 	//TODO: implement looking at history
-
+	
 	//get random link from todo list
 	chrome.storage.sync.get(key, function(data){
 		var linkArr = parseJSON(data[key]);
@@ -21,6 +23,4 @@ chrome.tabs.onCreated.addListener(function(tab) {
 			chrome.tabs.update(tab.id, {url: linkArr[rand].url});
 		}
 	});
-
-	
 });
