@@ -11,7 +11,7 @@
 
 
   "background":{
-    "scripts": ["bookmark_test.js"]
+    "scripts": ["newtab.js"]
   },
 
   "permissions": [
