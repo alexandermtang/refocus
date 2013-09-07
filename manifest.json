@@ -11,7 +11,7 @@
 
 
   "background":{
-    "scripts" : ["redirectTab.js", "newtab.js"]
+    "scripts" : ["redirectTab.js", "newtab.js","history.js"]
   },
 
   "browser_action": {
