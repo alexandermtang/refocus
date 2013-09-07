@@ -24,3 +24,22 @@ chrome.tabs.onCreated.addListener(function(tab) {
 
 	
 });
+
+
+//check if local storage has the websites or not
+var site_key = "refocus_websites";
+var console = chrome.extension.getBackgroundPage().console;
+
+chrome.storage.sync.get(site_key, function(data){
+	var websites = parseJSON(data[site_key]);
+	if(websites.length == 0){
+		//do the default websites
+		websites.push({url: "facebook.com", title: "Facebook"});
+		websites.push({url: "reddit.com", title: "Reddit"});
+		websites.push({url: "youtube.com", title: "Youtube"});
+		var newObj = {};
+		newObj[site_key] = JSON.stringify(websites);
+		chrome.storage.sync.set(newObj);
+	}
+
+});

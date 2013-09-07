@@ -40,7 +40,7 @@ function removeLink(linkArr, link){
 function storeLinkStr(linkStr){
   var newObj = {};
   newObj[key] = linkStr;
-	chrome.storage.sync.set(newObj, function() {});
+	chrome.storage.sync.set(newObj);
 }
 
 function updateList(linkArr){
