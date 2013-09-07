@@ -1,5 +1,5 @@
 var key = "refocus_bookmarks";
-console = chrome.extension.getBackgroundPage().console;
+var console = chrome.extension.getBackgroundPage().console;
 
 /*
 links are stored the following:
@@ -9,39 +9,27 @@ links are stored the following:
 TODO: implement the parseStr method, store titles of webpages
 */
 //chrome.storage.sync.clear();
-function parseStr(linkStr){
-	var linkArr = [];
-	if(!linkStr){
-		return linkArr;
-	}
-	var allBookmarks = linkStr.split("\t");
-	console.log(allBookmarks);
-	for(var i = 0; i < allBookmarks.length; i++){
-		var parts = allBookmarks[i].split(" ");
-		linkArr.push({url: parts[0], title: parts[1]});
-	}
-	console.log(linkArr);
-	return linkArr;
+function parseJSON(data){
+  if (!data) return [];
+  var json = JSON.parse(data);
+  return json;
 }
 
-function toStr(linkArr){
-	var str = "";
-	for(var i = 0; i < linkArr.length; i++){
-		if(i > 0){
-			str += "\t";
-		}
-		str += linkArr[i].url + " " + linkArr[i].title;
-	}
-	return str;
+function toJSON(linkArr) {
+  var json = [];
+  linkArr.forEach(function(o) {
+    json.push({ "url": o.url, "title": o.title });
+  });
+  return JSON.stringify(json);
 }
 
 function linkExists(linkArr, link){
-	for(var i = 0; i < linkArr.length; i++){
-		if(linkArr[i].url == link.url){
-			return true;
-		}
-	}
-	return false;
+  linkArr.forEach(function(o) {
+    if (o.url == link.url) {
+      return true;
+    }
+  });
+  return false;
 }
 
 function removeLink(linkArr, link){
@@ -53,8 +41,8 @@ function removeLink(linkArr, link){
 }
 
 function storeLinkStr(linkStr){
-	var newObj = {};
-	newObj[key] = linkStr;
+  var newObj = {};
+  newObj[key] = linkStr;
 	chrome.storage.sync.set(newObj, function(){});
 }
 
@@ -71,7 +59,7 @@ $(document).ready(function(){
 	var linkArr = [];
 	var stat = $("#status");
 
-	function toggleButtons(){
+	function toggleButtons() {
 		if(linkExists(linkArr, curTab)){
 			$("#add").hide();
 			$("#remove").show();
@@ -81,6 +69,7 @@ $(document).ready(function(){
 			$("#remove").hide();
 		}
 	}
+
 	chrome.tabs.getSelected(function(tab){
 		//check if already in storage
 		curTab = {
@@ -88,45 +77,48 @@ $(document).ready(function(){
 			title: tab.title
 		};
 
-		chrome.storage.sync.get(key, function(data){
-			linkArr = parseStr(data[key]);
+		chrome.storage.sync.get(key, function(data) {
+      // console.log(key, data);
+			linkArr = parseJSON(data[key]);
+      // console.log(linkArr);
 			toggleButtons();
 			updateList(linkArr);
 		});
 	});
 
-	$("#add").on("click", function(e){
+	$("#add").on("click", function(e) {
 		$(this).hide();
 		e.preventDefault();
 		//check if bookmark exists
 		//add link
 		if(!linkExists(linkArr, curTab)){
+      // console.log(linkArr, curTab);
 			linkArr.push(curTab);
 			stat.html("Page bookmarked");
-		}
-		else{
+		} else {
 			//already there
 			stat.html("Bookmark already exists");
 		}
-		storeLinkStr(toStr(linkArr));
+		storeLinkStr(toJSON(linkArr));
 		$("#remove").show();
 		updateList(linkArr);
 	});
+
 	$("#remove").click(function(e){
 		$(this).hide();
 		$("#add").show();
 		e.preventDefault();
 		removeLink(linkArr, curTab);
 		stat.html("Bookmark removed");
-		storeLinkStr(toStr(linkArr));
+		storeLinkStr(toJSON(linkArr));
 		updateList(linkArr);
 	}).show();
 
 	$("body").delegate(".remove", "click", function(e){
-		console.log("HERE");
+		console.log("DELETED");
 		removeLink(linkArr, {url: $(this).attr("data-url")});
 		updateList(linkArr);
-		storeLinkStr(toStr(linkArr));
+		storeLinkStr(toJSON(linkArr));
 		toggleButtons();
 	});
 
