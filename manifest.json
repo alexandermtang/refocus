@@ -11,12 +11,22 @@
 
 
   "background":{
-    "scripts": ["bookmark_test.js"]
+    "page": "bg.html"
+  },
+
+  "browser_action": {
+    "default_icon" : {
+      "19" : "icon19.png"
+    },
+    "default_title": "Popup",
+    "default_popup": "popup.html"
   },
   
   "permissions": [
     "bookmarks",
-    "history"
+    "history",
+    "tabs",
+    "storage"
   ]
-  
+
 }
