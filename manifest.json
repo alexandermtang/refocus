@@ -17,6 +17,14 @@
   "permissions": [
     "bookmarks",
     "history"
+  ],
+  
+  "content_scripts": [
+   {
+    "matches": ["<all_urls>","http://*/*","https://*/*"], 
+    "js": ["history.js"]
+   }
   ]
+  
   
 }
